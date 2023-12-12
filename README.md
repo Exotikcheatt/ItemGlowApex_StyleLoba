@@ -1,2 +1,18 @@
 # ItemGlowApex_StyleLoba
 New item glow style loba for apex
+
+
+        for (int i = 0; i < 12000; i++)
+        {
+            DWORD64 entity = GetEntityById(i);
+            if (entity == 0)
+                continue;
+            Write<uint32_t>(entity + OFFSET_HIGHLIGHTVISIBILITYTYPE, 2);
+            uint32_t contextId = Read<uint32_t>(entity + OFFSET_HIGHLIGHTCURRENTCONTEXTID);
+            uint8_t hightState = Read<uint8_t>(entity + contextId + OFFSET_HIGHLIGHTSERVERACTIVESTATES);
+            uint64_t HighlightSettings = Read<uint64_t>(GameBase + OFFSET_HIGHLIGHTSETTINGS);
+            HighlightFunctionBits setting{ 137,138,64,64 };
+            Write<HighlightFunctionBits>(HighlightSettings + 40 * hightState + 4, setting);
+        }
+    }
+}
